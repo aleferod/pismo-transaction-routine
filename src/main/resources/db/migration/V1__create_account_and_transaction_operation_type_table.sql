@@ -1,0 +1,12 @@
+create table account (id bigint not null, document_number varchar(255), primary key (id));
+create table account_seq (next_val bigint);
+insert into account_seq values ( 1 );
+create table operation_type (id bigint not null, description varchar(255), primary key (id));
+create table operation_type_seq (next_val bigint);
+insert into operation_type_seq values ( 1 );
+create table transaction (amount decimal(38,2), account_id bigint not null, event_date datetime(6), id bigint not null, operation_type_id bigint not null, primary key (id));
+create table transaction_seq (next_val bigint);
+insert into transaction_seq values ( 1 );
+alter table account add constraint UK_document_number_unique unique (document_number);
+alter table transaction add constraint FK_account_id foreign key (account_id) references account (id);
+alter table transaction add constraint FK_operation_type_id foreign key (operation_type_id) references operation_type (id);

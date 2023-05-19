@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-routine-app
+  namespace: transaction-routine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-routine-app
+  template:
+    metadata:
+      labels:
+        app: transaction-routine-app
+    spec:
+      containers:
+        - name: app
+          image: aleferod/transaction-routine-app:development
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 80
+            - name: mysql
+              protocol: TCP
+              containerPort: 3306
+            - name: server
+              protocol: TCP
+              containerPort: 8090
+          env:
+            - name: MYSQL_URL
+              value: jdbc:mysql://10.107.144.115:3306/transaction-routine-db?useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true
+            - name: MYSQL_USER
+              value: transaction-routine-user
+            - name: MYSQL_PASSWORD
+              value: transactionroutine123
+            - name: SERVER_PORT
+              value: "8090"
+          imagePullPolicy: Always

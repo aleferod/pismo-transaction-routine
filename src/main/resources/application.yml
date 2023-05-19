@@ -1,0 +1,16 @@
+server:
+  port: ${SERVER_PORT:8090}
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/transaction-routine-db}
+    username: ${MYSQL_USER:transaction-routine-user}
+    password: ${MYSQL_PASSWORD:transactionroutine123}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
